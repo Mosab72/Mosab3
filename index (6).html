@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تحليل مشاركات الزيارات الأكاديمية - الجامعات السعودية</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 تحليل مشاركات الزيارات الأكاديمية</h1>
+            <p>تحليل شامل لمشاركات أعضاء هيئة التدريس في زيارات الاعتماد الأكاديمي بالجامعات السعودية</p>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-btn active" onclick="showSection('overview')">نظرة عامة</button>
+            <button class="nav-btn" onclick="showSection('universities')">تحليل الجامعات</button>
+            <button class="nav-btn" onclick="showSection('demographics')">تحليل ديموغرافي</button>
+            <button class="nav-btn" onclick="showSection('nationalities')">الجنسيات</button>
+            <button class="nav-btn" onclick="showSection('top-universities')">أكثر الجامعات مشاركة</button>
+        </div>
+
+        <div class="content">
+            <!-- نظرة عامة -->
+            <div id="overview" class="section active">
+                <h2 class="chart-title">📈 نظرة عامة على البيانات</h2>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="number">841</div>
+                        <div class="label">إجمالي المشاركين</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="number">2,877</div>
+                        <div class="label">إجمالي المشاركات</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="number">76</div>
+                        <div class="label">عدد الجامعات</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="number">3.42</div>
+                        <div class="label">متوسط المشاركات لكل شخص</div>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <h3 class="chart-title">التوزيع حسب الجنس</h3>
+                    <div class="bar-chart">
+                        <div class="bar-item">
+                            <div class="bar-label">ذكور</div>
+                            <div class="bar-container">
+                                <div class="bar-fill" style="width: 59%">59%</div>
+                            </div>
+                            <span class="percentage">496 (59%)</span>
+                        </div>
+                        <div class="bar-item">
+                            <div class="bar-label">إناث</div>
+                            <div class="bar-container">
+                                <div class="bar-fill" style="width: 41%">41%</div>
+                            </div>
+                            <span class="percentage">345 (41%)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <h3 class="chart-title">التوزيع حسب الجنسية</h3>
+                    <div class="bar-chart">
+                        <div class="bar-item">
+                            <div class="bar-label">سعودي</div>
+                            <div class="bar-container">
+                                <div class="bar-fill" style="width: 78%">78%</div>
+                            </div>
+                            <span class="percentage">656 (78%)</span>
+                        </div>
+                        <div class="bar-item">
+                            <div class="bar-label">غير سعودي</div>
+                            <div class="bar-container">
+                                <div class="bar-fill" style="width: 22%">22%</div>
+                            </div>
+                            <span class="percentage">185 (22%)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <h3 class="chart-title">التوزيع حسب المرتبة العلمية</h3>
+                    <div class="bar-chart">
+                        <div class="bar-item">
+                            <div class="bar-label">أستاذ مساعد</div>
+                            <div class="bar-container">
+                                <div class="bar-fill" style="width: 46%">46%</div>
+                            </div>
+                            <span class="percentage">387 (46%)</span>
+                        </div>
+                        <div class="bar-item">
+                            <div class="bar-label">أستاذ مشارك</div>
+                            <div class="bar-container">
+                                <div class="bar-fill" style="width: 38%">38%</div>
+                            </div>
+                            <span class="percentage">320 (38%)</span>
+                        </div>
+                        <div class="bar-item">
+                            <div class="bar-label">أستاذ</div>
+                            <div class="bar-container">
+                                <div class="bar-fill" style="width: 16%">16%</div>
+                            </div>
+                            <span class="percentage">134 (16%)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- تحليل الجامعات -->
+            <div id="universities" class="section">
+                <h2 class="chart-title">🏛️ تحليل تفصيلي للجامعات</h2>
+                
+                <div class="search-box">
+                    <input type="text" id="universitySearch" placeholder="🔍 ابحث عن جامعة..." onkeyup="filterUniversities()">
+                </div>
+
+                <div class="chart-container">
+                    <table class="university-table" id="universityTable">
+                        <thead>
+                            <tr>
+                                <th>الترتيب</th>
+                                <th>اسم الجامعة</th>
+                                <th>عدد المشاركين</th>
+                                <th>إجمالي المشاركات</th>
+                                <th>ذكور</th>
+                                <th>إناث</th>
+                                <th>سعودي</th>
+                                <th>غير سعودي</th>
+                                <th>نسبة الإناث</th>
+                            </tr>
+                        </thead>
+                        <tbody id="universityTableBody">
+                            <!-- Data will be inserted by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- تحليل ديموغرافي -->
+            <div id="demographics" class="section">
+                <h2 class="chart-title">👥 التحليل الديموغرافي المفصل</h2>
+                
+                <div class="demographic-grid">
+                    <div class="demo-card">
+                        <h3>📊 التوزيع حسب الجنس</h3>
+                        <div class="demo-item">
+                            <span class="demo-label">ذكور</span>
+                            <span class="demo-value">496 (59%)</span>
+                        </div>
+                        <div class="demo-item">
+                            <span class="demo-label">إناث</span>
+                            <span class="demo-value">345 (41%)</span>
+                        </div>
+                        <div class="demo-item">
+                            <span class="demo-label">إجمالي المشاركات للذكور</span>
+                            <span class="demo-value">1,793</span>
+                        </div>
+                        <div class="demo-item">
+                            <span class="demo-label">إجمالي المشاركات للإناث</span>
+                            <span class="demo-value">1,084</span>
+                        </div>
+                    </div>
+
+                    <div class="demo-card">
+                        <h3>🌍 التوزيع حسب الجنسية</h3>
+                        <div class="demo-item">
+                            <span class="demo-label">سعودي</span>
+                            <span class="demo-value">656 (78%)</span>
+                        </div>
+                        <div class="demo-item">
+                            <span class="demo-label">غير سعودي</span>
+                            <span class="demo-value">185 (22%)</span>
+                        </div>
+                        <div class="demo-item">
+                            <span class="demo-label">مشاركات السعوديين</span>
+                            <span class="demo-value">2,342</span>
+                        </div>
+                        <div class="demo-item">
+                            <span class="demo-label">مشاركات غير السعوديين</span>
+                            <span class="demo-value">535</span>
+                        </div>
+                    </div>
+
+                    <div class="demo-card">
+                        <h3>🎓 التوزيع حسب المرتبة العلمية</h3>
+                        <div class="demo-item">
+                            <span class="demo-label">أستاذ</span>
+                            <span class="demo-value">134 (16%)</span>
+                        </div>
+                        <div class="demo-item">
+                            <span class="demo-label">أستاذ مشارك</span>
+                            <span class="demo-value">320 (38%)</span>
+                        </div>
+                        <div class="demo-item">
+                            <span class="demo-label">أستاذ مساعد</span>
+                            <span class="demo-value">387 (46%)</span>
+                        </div>
+                    </div>
+
+                    <div class="demo-card">
+                        <h3>📈 متوسطات المشاركة</h3>
+                        <div class="demo-item">
+                            <span class="demo-label">متوسط مشاركات الذكور</span>
+                            <span class="demo-value">3.6</span>
+                        </div>
+                        <div class="demo-item">
+                            <span class="demo-label">متوسط مشاركات الإناث</span>
+                            <span class="demo-value">3.1</span>
+                        </div>
+                        <div class="demo-item">
+                            <span class="demo-label">متوسط مشاركات الأساتذة</span>
+                            <span class="demo-value">5.2</span>
+                        </div>
+                        <div class="demo-item">
+                            <span class="demo-label">متوسط مشاركات المساعدين</span>
+                            <span class="demo-value">2.1</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- الجنسيات -->
+            <div id="nationalities" class="section">
+                <h2 class="chart-title">🌍 توزيع الجنسيات</h2>
+                
+                <div class="chart-container">
+                    <h3 class="chart-title">أكثر 15 جنسية مشاركة</h3>
+                    <div class="bar-chart">
+                        <div class="bar-item">
+                            <div class="bar-label">السعودية 🇸🇦</div>
+                            <div class="bar-container">
+                                <div class="bar-fill" style="width: 100%">78%</div>
+                            </div>
+                            <span class="percentage">656 (78%)</span>
+                        </div>
+                        <div class="bar-item">
+                            <div class="bar-label">المصرية 🇪🇬</div>
+                            <div class="bar-container">
+                                <div class="bar-fill" style="width: 13%">10%</div>
+                            </div>
+                            <span class="percentage">82 (10%)</span>
+                        </div>
+                        <div class="bar-item">
+                            <div class="bar-label">السودانية 🇸🇩</div>
+                            <div class="bar-container">
+                                <div class="bar-fill" style="width: 2%">1.5%</div>
+                            </div>
+                            <span class="percentage">13 (1.5%)</span>
+                        </div>
+                        <div class="bar-item">
+                            <div class="bar-label">الأردنية 🇯🇴</div>
+                            <div class="bar-container">
+                                <div class="bar-fill" style="width: 2%">1.4%</div>
+                            </div>
+                            <span class="percentage">12 (1.4%)</span>
+                        </div>
+                        <div class="bar-item">
+                            <div class="bar-label">التونسية 🇹🇳</div>
+                            <div class="bar-container">
+                                <div class="bar-fill" style="width: 1.5%">1.2%</div>
+                            </div>
+                            <span class="percentage">10 (1.2%)</span>
+                        </div>
+                        <div class="bar-item">
+                            <div class="bar-label">اليمنية 🇾🇪</div>
+                            <div class="bar-container">
+                                <div class="bar-fill" style="width: 1.2%">1%</div>
+                            </div>
+                            <span class="percentage">8 (1%)</span>
+                        </div>
+                        <div class="bar-item">
+                            <div class="bar-label">الباكستانية 🇵🇰</div>
+                            <div class="bar-container">
+                                <div class="bar-fill" style="width: 0.8%">0.7%</div>
+                            </div>
+                            <span class="percentage">6 (0.7%)</span>
+                        </div>
+                        <div class="bar-item">
+                            <div class="bar-label">الأمريكية 🇺🇸</div>
+                            <div class="bar-container">
+                                <div class="bar-fill" style="width: 0.7%">0.6%</div>
+                            </div>
+                            <span class="percentage">5 (0.6%)</span>
+                        </div>
+                        <div class="bar-item">
+                            <div class="bar-label">الكندية 🇨🇦</div>
+                            <div class="bar-container">
+                                <div class="bar-fill" style="width: 0.6%">0.5%</div>
+                            </div>
+                            <span class="percentage">4 (0.5%)</span>
+                        </div>
+                        <div class="bar-item">
+                            <div class="bar-label">الجزائرية 🇩🇿</div>
+                            <div class="bar-container">
+                                <div class="bar-fill" style="width: 0.5%">0.4%</div>
+                            </div>
+                            <span class="percentage">4 (0.4%)</span>
+                        </div>
+                        <div class="bar-item">
+                            <div class="bar-label">الهندية 🇮🇳</div>
+                            <div class="bar-container">
+                                <div class="bar-fill" style="width: 0.5%">0.4%</div>
+                            </div>
+                            <span class="percentage">4 (0.4%)</span>
+                        </div>
+                        <div class="bar-item">
+                            <div class="bar-label">الفرنسية 🇫🇷</div>
+                            <div class="bar-container">
+                                <div class="bar-fill" style="width: 0.4%">0.2%</div>
+                            </div>
+                            <span class="percentage">2 (0.2%)</span>
+                        </div>
+                        <div class="bar-item">
+                            <div class="bar-label">البريطانية 🇬🇧</div>
+                            <div class="bar-container">
+                                <div class="bar-fill" style="width: 0.2%">0.1%</div>
+                            </div>
+                            <span class="percentage">1 (0.1%)</span>
+                        </div>
+                        <div class="bar-item">
+                            <div class="bar-label">التركية 🇹🇷</div>
+                            <div class="bar-container">
+                                <div class="bar-fill" style="width: 0.2%">0.1%</div>
+                            </div>
+                            <span class="percentage">1 (0.1%)</span>
+                        </div>
+                        <div class="bar-item">
+                            <div class="bar-label">الماليزية 🇲🇾</div>
+                            <div class="bar-container">
+                                <div class="bar-fill" style="width: 0.2%">0.1%</div>
+                            </div>
+                            <span class="percentage">1 (0.1%)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <h3 class="chart-title">الجنسيات العربية الأكثر مشاركة (بعد السعودية)</h3>
+                    <div class="nationality-list">
+                        <div class="nationality-item">
+                            <div class="country">مصر 🇪🇬</div>
+                            <div class="count">82</div>
+                        </div>
+                        <div class="nationality-item">
+                            <div class="country">السودان 🇸🇩</div>
+                            <div class="count">13</div>
+                        </div>
+                        <div class="nationality-item">
+                            <div class="country">الأردن 🇯🇴</div>
+                            <div class="count">12</div>
+                        </div>
+                        <div class="nationality-item">
+                            <div class="country">تونس 🇹🇳</div>
+                            <div class="count">10</div>
+                        </div>
+                        <div class="nationality-item">
+                            <div class="country">اليمن 🇾🇪</div>
+                            <div class="count">8</div>
+                        </div>
+                        <div class="nationality-item">
+                            <div class="country">الجزائر 🇩🇿</div>
+                            <div class="count">4</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- أكثر الجامعات مشاركة -->
+            <div id="top-universities" class="section">
+                <h2 class="chart-title">🏆 أكثر 20 جامعة مشاركة</h2>
+                
+                <div class="top-universities" id="topUniversitiesList">
+                    <!-- Data will be inserted by JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>© 2024 تحليل مشاركات الزيارات الأكاديمية - الجامعات السعودية | جميع الحقوق محفوظة</p>
+            <p style="margin-top: 10px;">
+                <button class="export-btn" onclick="exportToCSV()">📥 تصدير CSV</button>
+                <button class="export-btn" onclick="printReport()">🖨️ طباعة التقرير</button>
+            </p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
